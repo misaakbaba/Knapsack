@@ -1,50 +1,36 @@
 import java.util.ArrayList;
 
-public class Knapsack {
-    private ArrayList<Double> coreValue; //data type değişebilir
-    private ArrayList<Keys> bag;
+public class Knapsack implements Comparable<Knapsack> {
+    private int size;
+    private ArrayList<Keys> items;
 
     public Knapsack() {
-        coreValue = new ArrayList<>(); // value / weight value
-        bag = new ArrayList<>(); //bag object list
+        items = new ArrayList<>();
     }
 
-    void bagFiller(Long capacity, ArrayList<Keys> items) { //fill the bag with most valuable items
-        Long currentCapacity = capacity;
-        short i = 0, size = (short) items.size();
-        while (currentCapacity > 0 && i < size) {
-            if (items.get(i).getWeight() < currentCapacity) {
-                bag.add(items.get(i));
-                currentCapacity -= items.get(i).getWeight();
-            }
-            i++;
-        }
+    public Knapsack(int size) {
+        this.size = size;
+        items = new ArrayList<>();
     }
 
-    int bagValue(ArrayList<Keys> bag) {
-        short size = (short) bag.size();
-        int value = 0;
-        for (int i = 0; i < size; i++) {
-            value += bag.get(i).getValue();
-        }
-        return value;
+    public ArrayList<Keys> getItems() {
+        return items;
     }
 
-    int bagWeight(ArrayList<Keys> bag) {
-        short size = (short) bag.size();
-        int weight = 0;
-        for (int i = 0; i < size; i++) {
-            weight += bag.get(i).getWeight();
-        }
-        return weight;
+    public int getSize() {
+        return size;
     }
 
-    public ArrayList<Keys> getBag() {
-        return bag;
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public ArrayList<Double> getCoreValue() {
-        return coreValue;
+    public void addItems(Keys keys) {
+        items.add(keys);
+    }
+
+    @Override
+    public int compareTo(Knapsack o) {
+        return this.size - o.size;
     }
 }
-
