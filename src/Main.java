@@ -1,18 +1,17 @@
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        problem1();
-//        problem2();
+    public static void main(String[] args) throws FileNotFoundException {
+//        problem1();
+        problem2();
     }
 
-    public static void problem1() throws FileNotFoundException, UnsupportedEncodingException {
+    public static void problem1() throws FileNotFoundException {
         String path = "test/knapsack_big.dat"; //input file
         String name = "out/output-" + "knapsack_big.dat"; //output file
         FileIO FileIO = new FileIO();
@@ -32,7 +31,7 @@ public class Main {
 //        System.out.println("knapsack value is: " + calculation.bagValue(bags));
     }
 
-    public static void problem2() throws FileNotFoundException, UnsupportedEncodingException {
+    public static void problem2() throws FileNotFoundException {
         String path = "test/test2d.dat"; //input file
         String name = "out/output-" + "test2d.dat"; //output file
         FileIO fileIO = new FileIO();
@@ -75,16 +74,8 @@ public class Main {
 
     }
 
-    static void printInfo(ArrayList<Keys> items) {
-        System.out.println("val    W    core");
-        short size = (short) items.size();
-        for (int i = 0; i < size; i++) {
-            System.out.println(items.get(i).getValue() + "    " + items.get(i).getWeight() + "    " + items.get(i).getCoreValue());
-        }
-    }
-
-    static void writeSingle(String name, ArrayList<Keys> originalList, ArrayList<Keys> bagContent) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter printWriter = new PrintWriter(name, "UTF-8");
+    static void writeSingle(String name, ArrayList<Keys> originalList, ArrayList<Keys> bagContent) throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(name);
         Calculation calculation = new Calculation();
         printWriter.println(calculation.bagValue(bagContent));
         for (int i = 0; i < originalList.size(); i++) {
@@ -93,8 +84,8 @@ public class Main {
         printWriter.close();
     }
 
-    static void writeMulti(String name, Knapsack[] originalKnapsack, ArrayList<Keys> originalList) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter printWriter = new PrintWriter(name, "UTF-8");
+    static void writeMulti(String name, Knapsack[] originalKnapsack, ArrayList<Keys> originalList) throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(name);
         Calculation calculation = new Calculation();
         int total = 0;
         for (int i = 0; i < originalKnapsack.length; i++) {
