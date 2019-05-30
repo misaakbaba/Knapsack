@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIO { // file read object and its instances
+    Knapsack knapsack[];
     private int capacity;
     private int numberOfItems;
     private ArrayList<Keys> items;
-    Knapsack knapsack[];
     //multi
     private int totalVal;
-    private short knapsackNumber;
+    private int knapsackNumber;
     private ArrayList<Keys> multiItems;
 
     public FileIO() {
@@ -18,36 +18,36 @@ public class FileIO { // file read object and its instances
         multiItems = new ArrayList<>();
     }
 
-    void reader(String path) throws FileNotFoundException { // file reader
-        short value, weight;
+    void reader(String path) throws FileNotFoundException { // file reader for single knapsack problem
+        int value, weight;
         double coreValue;
         Calculation calculation = new Calculation();
         Scanner scan = new Scanner(new File(path));
         numberOfItems = scan.nextInt();
         capacity = scan.nextInt();
         while (scan.hasNext()) {
-            value = scan.nextShort();
-            weight = scan.nextShort();
+            value = scan.nextInt();
+            weight = scan.nextInt();
             coreValue = (double) value / weight;
             items.add(new Keys(value, weight, coreValue));
         }
     }
 
-    void multiReader(String path) throws FileNotFoundException { // file reader
-        short value, weight;
+    void multiReader(String path) throws FileNotFoundException { // file rfor multi knapsack problem
+        int value, weight;
         double coreValue;
         Calculation calculation = new Calculation();
         Scanner scan = new Scanner(new File(path));
         totalVal = scan.nextInt();
-        knapsackNumber = (short) scan.nextInt();
+        knapsackNumber = scan.nextInt();
         knapsack = new Knapsack[knapsackNumber];
-        short size = (short) knapsack.length;
+        int size = knapsack.length;
         for (int i = 0; i < size; i++) {
             knapsack[i] = new Knapsack(scan.nextInt());
         }
         while (scan.hasNext()) {
-            value = scan.nextShort();
-            weight = scan.nextShort();
+            value = scan.nextInt();
+            weight = scan.nextInt();
             coreValue = (double) value / weight;
             multiItems.add(new Keys(value, weight, coreValue));
         }
@@ -69,7 +69,7 @@ public class FileIO { // file read object and its instances
         return totalVal;
     }
 
-    public short getKnapsackNumber() {
+    public int getKnapsackNumber() {
         return knapsackNumber;
     }
 
@@ -83,28 +83,27 @@ public class FileIO { // file read object and its instances
 }
 
 class Keys implements Comparable<Keys> {
-    private short value;
-    private short weight;
+    private int value;
+    private int weight;
     private double coreValue;
 
-    public Keys(Short value, Short weight, double coreValue) {
+    public Keys(int value, int weight, double coreValue) {
         this.value = value;
         this.weight = weight;
         this.coreValue = coreValue;
     }
 
-    public Short getValue() {
+    public int getValue() {
         return value;
     }
 
-    public Short getWeight() {
+    public int getWeight() {
         return weight;
     }
 
     public double getCoreValue() {
         return coreValue;
     }
-
 
     @Override
     public int compareTo(Keys o) {

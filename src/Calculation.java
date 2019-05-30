@@ -11,7 +11,7 @@ public class Calculation {
 
     ArrayList<Keys> bagFiller(int capacity, ArrayList<Keys> items, ArrayList<Keys> bag) { //fill the bag with most valuable items
         int currentCapacity = capacity;
-        short i = 0;
+        int i = 0;
         while (currentCapacity > 0 && i < items.size()) {
             if (items.get(i).getWeight() < currentCapacity) {
                 bag.add(items.get(i));
@@ -24,15 +24,15 @@ public class Calculation {
         return bag;
     }
 
-    void multiBagFiller(Knapsack knapsack[], ArrayList<Keys> items) {
-        short size = (short) knapsack.length;
+    void multiBagFiller(Knapsack knapsack[], ArrayList<Keys> items) { // fill the multi knapsacks
+        int size = knapsack.length;
         for (int i = 0; i < size; i++) {
             bagFiller(knapsack[i].getSize(), items, knapsack[i].getItems());
         }
     }
 
-    int bagValue(ArrayList<Keys> bag) {
-        short size = (short) bag.size();
+    int bagValue(ArrayList<Keys> bag) { //return bag value
+        int size = bag.size();
         int value = 0;
         for (int i = 0; i < size; i++) {
             value += bag.get(i).getValue();
@@ -40,8 +40,8 @@ public class Calculation {
         return value;
     }
 
-    int bagWeight(ArrayList<Keys> bag) {
-        short size = (short) bag.size();
+    int bagWeight(ArrayList<Keys> bag) { // return bag weight
+        int size = bag.size();
         int weight = 0;
         for (int i = 0; i < size; i++) {
             weight += bag.get(i).getWeight();
@@ -55,5 +55,15 @@ public class Calculation {
 
     public ArrayList<Double> getCoreValue() {
         return coreValue;
+    }
+
+    public int comparator(Keys keys, ArrayList<Keys> bagContent) { //compare item list with its original position
+        for (int i = 0; i < bagContent.size(); i++) {
+            if (keys.getValue() == bagContent.get(i).getValue())
+                if (keys.getWeight() == bagContent.get(i).getWeight()) {
+                    return 1;
+                }
+        }
+        return 0;
     }
 }
